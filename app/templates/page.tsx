@@ -98,6 +98,31 @@ export default function TemplatesPage() {
               </Link>
             </CardContent>
           </Card>
+
+          {/* Resume Template */}
+          <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <div className="relative overflow-hidden rounded-t-lg h-48 bg-gradient-to-br from-orange-500 via-red-600 to-amber-700">
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-amber-400/20 to-orange-500/30" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-12 h-12 text-white/80 flex items-center justify-center">📄</div>
+              </div>
+            </div>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <div className="w-5 h-5 text-orange-600 flex items-center justify-center">📋</div>
+                Resume Template
+              </CardTitle>
+              <CardDescription>Professional resume with PDF download and breathing backgrounds</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/templates/resume">
+                <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700">
+                  View Template
+                  <div className="w-4 h-4 ml-2 flex items-center justify-center">→</div>
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

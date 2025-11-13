@@ -2,6 +2,11 @@
 import { OrganicTitle } from "@/components/creative-chaos/organic-title"
 import { FloatingCard } from "@/components/creative-chaos/floating-card"
 import { LaydownCard } from "@/components/laydown-card"
+import { AudioSection } from "@/components/audio-experience/audio-section"
+import { AudioButton } from "@/components/audio-experience/audio-button"
+import { AudioToggle } from "@/components/audio-experience/audio-toggle"
+import { ProjectModal } from "@/components/project-modal"
+import FloatingNav from "@/components/floating-nav"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 
@@ -401,6 +406,280 @@ export function FloatingCard({
               </div>
             </div>
           </FloatingCard>
+        </div>
+      ),
+    },
+    {
+      name: "AudioSection",
+      category: "Audio",
+      description: "Spatial audio sections with automatic narration on scroll",
+      importPath: "@/components/audio-experience/audio-section",
+      code: `"use client"
+
+import type React from "react"
+import { useEffect, useRef } from "react"
+import { useAudioEngine } from "./audio-engine"
+
+interface AudioSectionProps {
+  id: string
+  title: string
+  description: string
+  position: { x: number; y: number; z: number }
+  children: React.ReactNode
+}
+
+export function AudioSection({ id, title, description, position, children }: AudioSectionProps) {
+  const { isActive, narrateSection, setSpatialPosition } = useAudioEngine()
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const hasNarratedRef = useRef(false)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+
+  useEffect(() => {
+    if (!isActive || !sectionRef.current) return
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasNarratedRef.current) {
+            setSpatialPosition(position.x, position.y, position.z)
+            setTimeout(() => {
+              narrateSection(id, \`\${title}. \${description}\`)
+            }, 300)
+            hasNarratedRef.current = true
+          } else if (!entry.isIntersecting) {
+            hasNarratedRef.current = false
+          }
+        })
+      },
+      { threshold: 0.3, rootMargin: "0px 0px -20% 0px" }
+    )
+
+    observerRef.current.observe(sectionRef.current)
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [isActive, id, title, description, position, narrateSection, setSpatialPosition])
+
+  return (
+    <div ref={sectionRef} data-audio-section={id} role="region" aria-label={title}>
+      {children}
+    </div>
+  )
+}`,
+      preview: (
+        <div className="relative w-full min-h-[400px] bg-gradient-to-br from-orange-800 to-red-900 rounded-2xl overflow-hidden p-8">
+          <AudioSection
+            id="demo-section"
+            title="Demo Section"
+            description="This section narrates automatically when scrolled into view"
+            position={{ x: 0, y: 0, z: -5 }}
+          >
+            <div className="text-white space-y-4">
+              <h3 className="text-3xl font-bold">Audio Section Demo</h3>
+              <p className="text-white/80">
+                Enable audio mode and scroll to hear this section narrate. The audio system provides spatial 3D positioning
+                for an immersive experience.
+              </p>
+            </div>
+          </AudioSection>
+        </div>
+      ),
+    },
+    {
+      name: "AudioButton",
+      category: "Audio",
+      description: "Buttons with rich audio feedback for interactions",
+      importPath: "@/components/audio-experience/audio-button",
+      code: `"use client"
+
+import type React from "react"
+import { useAudioEngine } from "./audio-engine"
+
+interface AudioButtonProps {
+  children: React.ReactNode
+  onClick?: () => void
+  className?: string
+  description?: string
+}
+
+export function AudioButton({ children, onClick, className = "", description }: AudioButtonProps) {
+  const { isActive, playComponentSound, narrateSection } = useAudioEngine()
+
+  const handleClick = () => {
+    if (isActive) {
+      playComponentSound("button")
+      if (description) {
+        narrateSection("button-interaction", description)
+      }
+    }
+    onClick?.()
+  }
+
+  return (
+    <button onClick={handleClick} className={className} aria-label={description}>
+      {children}
+    </button>
+  )
+}`,
+      preview: (
+        <div className="flex items-center justify-center min-h-[400px] bg-gradient-to-br from-orange-800 to-red-900 rounded-2xl gap-4 flex-wrap">
+          <AudioButton
+            description="Primary action button clicked"
+            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-semibold px-8 py-4 rounded-full shadow-lg"
+          >
+            Click Me
+          </AudioButton>
+          <AudioButton
+            description="Secondary action button clicked"
+            className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold px-8 py-4 rounded-full border border-white/30"
+          >
+            Secondary
+          </AudioButton>
+        </div>
+      ),
+    },
+    {
+      name: "AudioToggle",
+      category: "Audio",
+      description: "Global audio system toggle with volume control",
+      importPath: "@/components/audio-experience/audio-toggle",
+      code: `"use client"
+
+import { Volume2, VolumeX, AlertCircle } from "lucide-react"
+import { useAudioEngine } from "./audio-engine"
+
+export function AudioToggle() {
+  const { isActive, toggleAudio, playComponentSound, error } = useAudioEngine()
+
+  const handleToggle = () => {
+    playComponentSound("button")
+    toggleAudio()
+  }
+
+  return (
+    <div className="fixed top-6 right-6 z-50">
+      <button
+        onClick={handleToggle}
+        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+        aria-label={isActive ? "Disable audio experience" : "Enable audio experience"}
+        aria-pressed={isActive}
+        disabled={!!error}
+      >
+        {error ? (
+          <AlertCircle className="w-5 h-5" />
+        ) : isActive ? (
+          <Volume2 className="w-5 h-5" />
+        ) : (
+          <VolumeX className="w-5 h-5" />
+        )}
+        <span className="text-sm font-semibold">
+          {error ? "Audio Error" : isActive ? "Audio On" : "Audio Mode"}
+        </span>
+      </button>
+    </div>
+  )
+}`,
+      preview: (
+        <div className="relative w-full min-h-[400px] bg-gradient-to-br from-orange-800 to-red-900 rounded-2xl overflow-hidden flex items-center justify-center">
+          <div className="relative">
+            <AudioToggle />
+            <p className="text-white/80 text-center mt-20">
+              The audio toggle appears in the top-right corner. Enable it to experience spatial audio narration.
+            </p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      name: "ProjectModal",
+      category: "Interactive",
+      description: "Rich modal for displaying project case studies with GitHub integration",
+      importPath: "@/components/project-modal",
+      code: `"use client"
+
+import { useState } from "react"
+import { ProjectModal } from "@/components/project-modal"
+
+const [selectedProject, setSelectedProject] = useState(null)
+
+<ProjectModal
+  project={selectedProject}
+  isOpen={!!selectedProject}
+  onClose={() => setSelectedProject(null)}
+/>
+
+// Project data structure:
+{
+  id: "project-id",
+  title: "Project Name",
+  description: "Short description",
+  longDescription: "Detailed description",
+  technologies: ["React", "TypeScript"],
+  githubUrl: "https://github.com/user/repo",
+  liveUrl: "https://demo.com",
+  images: ["/image1.jpg"],
+  challenge: "The problem",
+  solution: "The solution",
+  impact: "The impact"
+}`,
+      preview: (
+        <div className="relative w-full min-h-[500px] bg-gradient-to-br from-orange-800 to-red-900 rounded-2xl overflow-hidden p-8 flex items-center justify-center">
+          <div className="text-white text-center space-y-4">
+            <h3 className="text-2xl font-bold">Project Modal</h3>
+            <p className="text-white/80 max-w-md">
+              Click a project card to open the modal. It features GitHub API integration, image carousel, and scroll-based
+              3D rotation effects.
+            </p>
+            <Button
+              onClick={() => {
+                alert("Modal would open here. Check the homepage to see it in action!")
+              }}
+              className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+            >
+              View Example
+            </Button>
+          </div>
+        </div>
+      ),
+    },
+    {
+      name: "FloatingNav",
+      category: "Navigation",
+      description: "Persistent floating navigation with Creative Chaos branding",
+      importPath: "@/components/floating-nav",
+      code: `"use client"
+
+import FloatingNav from "@/components/floating-nav"
+
+export default function Layout() {
+  return (
+    <>
+      <FloatingNav />
+      {/* Your content */}
+    </>
+  )
+}`,
+      preview: (
+        <div className="relative w-full min-h-[400px] bg-gradient-to-br from-orange-800 to-red-900 rounded-2xl overflow-hidden">
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="bg-gradient-to-r from-orange-800/95 via-red-800/95 to-amber-800/95 backdrop-blur-xl border border-orange-600/40 rounded-full px-4 py-2 shadow-2xl">
+              <div className="flex items-center space-x-4 text-sm text-white">
+                <span className="font-bold">Creative Chaos</span>
+                <span className="text-orange-200">Templates</span>
+                <span className="text-orange-200">Components</span>
+                <span className="text-orange-200">Contact</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-center h-full pt-16">
+            <p className="text-white/80 text-center max-w-md">
+              Floating navigation appears at the top of the page. It hides on scroll down and shows on scroll up for a
+              clean browsing experience.
+            </p>
+          </div>
         </div>
       ),
     },

@@ -26,6 +26,7 @@ import { ProjectModal } from "@/components/project-modal"
 import { projects as projectsData } from "@/config/projects"
 import { AudioSection } from "@/components/audio-experience/audio-section"
 import { AudioButton } from "@/components/audio-experience/audio-button"
+import ResumeTemplate from "@/app/templates/resume/page"
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0)
@@ -118,7 +119,7 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-background">
       <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <AudioSection
@@ -127,7 +128,7 @@ export default function HomePage() {
         description="Experience the Creative Chaos design philosophy. Living gradients, organic motion, and joyful interactions that breathe with every scroll."
         position={{ x: 0, y: 0, z: -5 }}
       >
-        <section className="relative min-h-screen rounded-3xl mb-8">
+        <section className="relative min-h-screen rounded-3xl mb-16">
           {/* Breathing, Living Background */}
           <div
             className="absolute inset-0 rounded-3xl"
@@ -364,7 +365,7 @@ export default function HomePage() {
         description="Revolutionary design featuring neural depth motion, organic parallax, and joyful interactions. Join the movement to create interfaces that users fall in love with."
         position={{ x: 0, y: 2, z: -6 }}
       >
-        <section className="relative min-h-screen mb-8">
+        <section className="relative min-h-screen mb-16">
           {/* Living, breathing background */}
           <div
             className="absolute inset-0"
@@ -696,7 +697,7 @@ export default function HomePage() {
         description="Explore innovative projects showcasing neural motion, chaos design, and joyful engineering. Each project breaks conventions to create memorable experiences."
         position={{ x: 0, y: 4, z: -7 }}
       >
-        <section className="relative min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 overflow-hidden rounded-3xl">
+        <section className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 rounded-3xl mb-16 overflow-visible">
           <div className="relative min-h-screen flex items-center justify-center p-8">
             {/* Living background that breathes */}
             <div
@@ -777,12 +778,12 @@ export default function HomePage() {
                 >
                   <Github className="w-5 h-5 mr-2" />
                   Source Magic
-                </Github>
+                </AudioButton>
               </Link>
             </div>
           </div>
 
-          <section className="relative py-32 px-8">
+          <section className="relative py-32 px-8 pb-64">
             <div
               className="absolute top-20 left-1/2 transform -translate-x-1/2 text-center z-10"
               style={{ transform: `translateX(-50%) rotate(${Math.sin(scrollY * 0.01) * 2}deg)` }}
@@ -791,7 +792,7 @@ export default function HomePage() {
               <div className="w-32 h-2 bg-gradient-to-r from-orange-600 to-red-600 mx-auto rounded-full"></div>
             </div>
 
-            <div className="relative max-w-7xl mx-auto">
+            <div className="relative max-w-7xl mx-auto" style={{ minHeight: "1400px", paddingTop: "200px", paddingBottom: "200px" }}>
               {projects.map((project, i) => {
                 const sizeClasses = {
                   small: "w-80 h-64",
@@ -806,10 +807,9 @@ export default function HomePage() {
                     className={`absolute group cursor-pointer transition-all duration-700 hover:scale-110 hover:z-30 ${sizeClasses[project.size]} shadow-2xl`}
                     style={{
                       left: `${project.position.x}%`,
-                      top: `${project.position.y + i * 120}px`,
+                      top: `${project.position.y + i * 150}px`,
                       transform: `
                       rotate(${project.rotation + Math.sin(time * 0.3 + i) * 3}deg) 
-                      translateY(${scrollY * (0.1 + i * 0.02)}px)
                       translateX(${Math.sin(time * 0.2 + i) * 10}px)
                     `,
                       zIndex: 10 + i,
@@ -896,108 +896,10 @@ export default function HomePage() {
               })}
             </div>
           </section>
-
-          <section className="relative py-32 overflow-hidden">
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-orange-600/20 via-red-600/20 to-amber-600/20"
-              style={{ transform: `rotate(${time * 0.5}deg) scale(${1.2 + Math.sin(time) * 0.1})` }}
-            />
-
-            <div className="relative text-center mb-20">
-              <h2
-                className="text-8xl font-black text-transparent bg-gradient-to-r from-orange-700 to-red-700 bg-clip-text"
-                style={{ transform: `rotate(${Math.sin(time * 0.3) * 3}deg)` }}
-              >
-                SUPERPOWERS
-              </h2>
-            </div>
-
-            <div className="relative max-w-6xl mx-auto h-96">
-              {[
-                { name: "Neural Motion", level: 95, icon: Zap, position: { x: 20, y: 30 } },
-                { name: "Chaos Design", level: 98, icon: Palette, position: { x: 70, y: 20 } },
-                { name: "Joy Engineering", level: 92, icon: Sparkles, position: { x: 60, y: 70 } },
-                { name: "Reality Bending", level: 89, icon: Target, position: { x: 15, y: 80 } },
-                { name: "Soul Coding", level: 94, icon: Star, position: { x: 80, y: 50 } },
-              ].map((skill, i) => (
-                <div
-                  key={i}
-                  className="absolute group cursor-pointer"
-                  style={{
-                    left: `${skill.position.x}%`,
-                    top: `${skill.position.y}%`,
-                    transform: `
-                      translate(-50%, -50%) 
-                      rotate(${Math.sin(time * 0.4 + i) * 10}deg)
-                      scale(${1 + Math.sin(time * 0.6 + i) * 0.1})
-                    `,
-                  }}
-                >
-                  <Card className="bg-white/10 backdrop-blur-sm border-orange-300/30 p-6 text-center group-hover:scale-125 transition-all duration-500 shadow-2xl">
-                    <skill.icon
-                      className="w-12 h-12 mx-auto mb-4 text-orange-600"
-                      style={{ transform: `rotate(${time * 20 + i * 45}deg)` }}
-                    />
-                    <div className="text-orange-800 font-bold text-lg">{skill.name}</div>
-                    <div className="text-3xl font-black text-red-600 mt-2">{skill.level}%</div>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="relative py-32 text-center">
-            <div
-              className="max-w-4xl mx-auto space-y-12"
-              style={{ transform: `translateY(${Math.sin(time * 0.5) * 20}px)` }}
-            >
-              <h2
-                className="text-9xl font-black text-transparent bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 bg-clip-text leading-none"
-                style={{ transform: `rotate(${Math.sin(time * 0.2) * 2}deg)` }}
-              >
-                LET'S CREATE
-                <br />
-                <span className="text-7xl" style={{ transform: `rotate(${Math.cos(time * 0.3) * -3}deg)` }}>
-                  MAGIC TOGETHER
-                </span>
-              </h2>
-
-              <p
-                className="text-2xl text-orange-800 font-medium max-w-2xl mx-auto leading-relaxed"
-                style={{ transform: `rotate(${Math.sin(time * 0.4) * 1}deg)` }}
-              >
-                Ready to break every rule and create something that makes people's hearts skip a beat?
-              </p>
-
-              <div
-                className="flex flex-col sm:flex-row gap-8 justify-center items-center"
-                style={{ transform: `translateY(${Math.cos(time * 0.7) * 10}px)` }}
-              >
-                <Link href="/contact">
-                  <AudioButton
-                    description="Start the chaos - Let's create magic together"
-                    className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 inline-flex items-center"
-                    style={{ transform: `rotate(${Math.sin(time * 0.8) * 3}deg)` }}
-                  >
-                    <Orbit className="w-6 h-6 mr-3" />
-                    Start the Chaos
-                  </AudioButton>
-                </Link>
-                <Link href="https://github.com">
-                  <AudioButton
-                    description="See my soul - Explore my creative code"
-                    className="border-2 border-orange-400 text-orange-700 hover:bg-orange-100 font-bold text-xl px-12 py-6 rounded-full backdrop-blur-sm bg-white/30 inline-flex items-center"
-                    style={{ transform: `rotate(${Math.cos(time * 0.9) * -3}deg)` }}
-                  >
-                    <Palette className="w-6 h-6 mr-3" />
-                    See My Soul
-                  </AudioButton>
-                </Link>
-              </div>
-            </div>
-          </section>
         </section>
       </AudioSection>
+
+      <ResumeTemplate />
     </div>
   )
 }
