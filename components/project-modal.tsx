@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react"
 import { X, Github, ExternalLink, Star, GitFork, Eye } from "lucide-react"
+import { rateLimiter, RATE_LIMITS } from "@/lib/rate-limiter"
+import { validateGitHubUrl } from "@/lib/sanitize"
 
 interface ProjectData {
   id: string
@@ -33,18 +35,54 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   // Fetch GitHub stats if GitHub URL is provided
   useEffect(() => {
     if (project?.githubUrl && isOpen) {
+      // Validate GitHub URL
+      if (!validateGitHubUrl(project.githubUrl)) {
+        console.error("[SECURITY] Invalid GitHub URL")
+        return
+      }
+
+      // Apply rate limiting
+      if (!rateLimiter.check("github-api", RATE_LIMITS.GITHUB_API)) {
+        console.warn("[RATE LIMIT] GitHub API rate limit exceeded")
+        setGithubStats({
+          stars: 0,
+          forks: 0,
+          watchers: 0,
+          language: "Rate Limited",
+        })
+        return
+      }
+
       const repoPath = project.githubUrl.replace("https://github.com/", "")
-      fetch(`https://api.github.com/repos/${repoPath}`)
-        .then((res) => res.json())
+
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+      fetch(`https://api.github.com/repos/${repoPath}`, {
+        signal: controller.signal,
+      })
+        .then((res) => {
+          clearTimeout(timeoutId)
+          if (!res.ok) {
+            throw new Error(`GitHub API error: ${res.status}`)
+          }
+          return res.json()
+        })
         .then((data) => {
+          // Validate response data
           setGithubStats({
-            stars: data.stargazers_count,
-            forks: data.forks_count,
-            watchers: data.watchers_count,
-            language: data.language,
+            stars: typeof data.stargazers_count === "number" ? data.stargazers_count : 0,
+            forks: typeof data.forks_count === "number" ? data.forks_count : 0,
+            watchers: typeof data.watchers_count === "number" ? data.watchers_count : 0,
+            language: typeof data.language === "string" ? data.language : "Unknown",
           })
         })
-        .catch((err) => console.log("GitHub API error:", err))
+        .catch((err) => {
+          clearTimeout(timeoutId)
+          console.error("[GITHUB API ERROR]", err.message)
+          // Don't expose error details to users
+          setGithubStats(null)
+        })
     }
   }, [project, isOpen])
 

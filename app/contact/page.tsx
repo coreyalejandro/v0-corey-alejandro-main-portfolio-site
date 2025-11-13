@@ -17,6 +17,8 @@ export default function ContactPage() {
     email: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
     const timer = setInterval(() => setTime((prev) => prev + 0.1), 100)
@@ -30,10 +32,35 @@ export default function ContactPage() {
     }
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    alert("Message sent! Let's create magic together! ✨")
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message")
+      }
+
+      alert("Message sent! Let's create magic together! ✨")
+      setFormData({ name: "", email: "", message: "" })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to send message"
+      setSubmitError(message)
+      alert(`Error: ${message}`)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -119,15 +146,17 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Update submit button to show loading state */}
               <Button
                 type="submit"
-                className="w-full bg-amber-400 hover:bg-amber-300 text-black font-bold text-xl py-6 rounded-2xl transform hover:scale-105 transition-all duration-300"
+                disabled={isSubmitting}
+                className="w-full bg-amber-400 hover:bg-amber-300 text-black font-bold text-xl py-6 rounded-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
                   transform: `rotate(${Math.sin(time * 0.7) * 2}deg)`,
                 }}
               >
                 <Heart className="w-6 h-6 mr-3" />
-                Send the Magic
+                {isSubmitting ? "Sending..." : "Send the Magic"}
                 <Sparkles className="w-6 h-6 ml-3" />
               </Button>
             </form>
