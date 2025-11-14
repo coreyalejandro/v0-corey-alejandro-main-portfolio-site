@@ -27,7 +27,7 @@ export default function PortfolioTemplate() {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
 
@@ -167,7 +167,7 @@ export default function PortfolioTemplate() {
               Enter the Chaos
             </Button>
           </Link>
-          <Link href="/projects">
+          <Link href="/">
             <Button
               variant="outline"
               className="border-orange-400 text-orange-700 hover:bg-orange-100 font-semibold px-8 py-4 rounded-full backdrop-blur-sm bg-white/30"
@@ -191,7 +191,7 @@ export default function PortfolioTemplate() {
 
         <div className="relative max-w-7xl mx-auto">
           {projects.map((project, i) => {
-            const sizeClasses = {
+            const sizeClasses: Record<"small" | "medium" | "large", string> = {
               small: "w-80 h-64",
               medium: "w-96 h-80",
               large: "w-[500px] h-96",
@@ -200,7 +200,7 @@ export default function PortfolioTemplate() {
             return (
               <Card
                 key={i}
-                className={`absolute group cursor-pointer transition-all duration-700 hover:scale-110 hover:z-30 ${sizeClasses[project.size]} shadow-2xl`}
+                className={`absolute group cursor-pointer transition-all duration-700 hover:scale-110 hover:z-30 ${sizeClasses[project.size as "small" | "medium" | "large"]} shadow-2xl`}
                 style={{
                   left: `${project.position.x}%`,
                   top: `${project.position.y + i * 120}px`,
@@ -270,7 +270,7 @@ export default function PortfolioTemplate() {
                         </div>
                       </div>
 
-                      <Link href="/projects">
+                      <Link href="/">
                         <Button
                           size="sm"
                           className="bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur-sm group/btn"
@@ -284,7 +284,7 @@ export default function PortfolioTemplate() {
 
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Link href="/projects">
+                    <Link href="/">
                       <Button className="bg-white text-orange-600 hover:bg-white/90 font-bold">
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Launch Project
@@ -383,7 +383,7 @@ export default function PortfolioTemplate() {
                 Start the Chaos
               </Button>
             </Link>
-            <Link href="/projects">
+            <Link href="/">
               <Button
                 variant="outline"
                 className="border-2 border-orange-400 text-orange-700 hover:bg-orange-100 font-bold text-xl px-12 py-6 rounded-full backdrop-blur-sm bg-white/30"

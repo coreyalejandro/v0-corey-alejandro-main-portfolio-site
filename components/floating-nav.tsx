@@ -33,7 +33,6 @@ export default function FloatingNav() {
     { name: "Design System", href: "/design-system", icon: CustomIcons.DesignSystem },
     { name: "Components", href: "/components", icon: CustomIcons.Components },
     { name: "Documentation", href: "/documentation", icon: CustomIcons.Documentation },
-    { name: "Projects", href: "/projects", icon: CustomIcons.Projects },
     { name: "Contact", href: "/contact", icon: CustomIcons.Contact },
   ]
 
@@ -50,7 +49,7 @@ export default function FloatingNav() {
             className="group relative flex items-center space-x-2 px-5 py-2 rounded-full bg-white/10 border border-orange-400/30 transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:border-orange-300/50"
           >
             <CustomIcons.Home />
-            <span className="text-base font-bold text-white tracking-wide">Creative Chaos</span>
+            <span className="text-base font-bold text-white tracking-wide">Corey Alejandro</span>
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/0 via-red-500/0 to-amber-500/0 group-hover:from-orange-500/20 group-hover:via-red-500/20 group-hover:to-amber-500/20 transition-all duration-300" />
           </Link>
 
