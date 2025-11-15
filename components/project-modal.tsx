@@ -79,7 +79,10 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
         })
         .catch((err) => {
           clearTimeout(timeoutId)
-          console.error("[GITHUB API ERROR]", err.message)
+          // Only log in development, silently fail in production
+          if (process.env.NODE_ENV === "development") {
+            console.warn("[GITHUB API]", err.message)
+          }
           // Don't expose error details to users
           setGithubStats(null)
         })
