@@ -359,6 +359,8 @@ export default function HomePage() {
         </section>
       </AudioSection>
 
+      <ResumeTemplate />
+
       <AudioSection
         id="landing"
         title="Build the Future"
@@ -666,24 +668,26 @@ export default function HomePage() {
                 style={{ transform: `translateY(${Math.cos(time * 0.7) * 10}px)` }}
               >
                 <Link href="/contact">
-                  <AudioButton
-                    description="Start the chaos - Begin your creative journey"
-                    className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 inline-flex items-center"
-                    style={{ transform: `rotate(${Math.sin(time * 0.8) * 3}deg)` }}
-                  >
-                    <Orbit className="w-6 h-6 mr-3" />
-                    Start the Chaos
-                  </AudioButton>
+                  <span style={{ transform: `rotate(${Math.sin(time * 0.8) * 3}deg)`, display: "inline-block" }}>
+                    <AudioButton
+                      description="Start the chaos - Begin your creative journey"
+                      className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 inline-flex items-center"
+                    >
+                      <Orbit className="w-6 h-6 mr-3" />
+                      Start the Chaos
+                    </AudioButton>
+                  </span>
                 </Link>
                 <Link href="https://github.com">
-                  <AudioButton
-                    description="See my soul - Explore my creative code"
-                    className="border-2 border-orange-400 text-orange-700 hover:bg-orange-100 font-bold text-xl px-12 py-6 rounded-full backdrop-blur-sm bg-white/30 inline-flex items-center"
-                    style={{ transform: `rotate(${Math.cos(time * 0.9) * -3}deg)` }}
-                  >
-                    <Palette className="w-6 h-6 mr-3" />
-                    See My Soul
-                  </AudioButton>
+                  <span style={{ transform: `rotate(${Math.cos(time * 0.9) * -3}deg)`, display: "inline-block" }}>
+                    <AudioButton
+                      description="See my soul - Explore my creative code"
+                      className="border-2 border-orange-400 text-orange-700 hover:bg-orange-100 font-bold text-xl px-12 py-6 rounded-full backdrop-blur-sm bg-white/30 inline-flex items-center"
+                    >
+                      <Palette className="w-6 h-6 mr-3" />
+                      See My Soul
+                    </AudioButton>
+                  </span>
                 </Link>
               </div>
             </div>
@@ -761,24 +765,26 @@ export default function HomePage() {
               }}
             >
               <Link href="/contact">
-                <AudioButton
-                  description="Enter the chaos - Connect with me for collaboration"
-                  className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold px-8 py-4 rounded-full shadow-2xl inline-flex items-center"
-                  style={{ transform: `rotate(${Math.sin(time * 0.6) * 3}deg)` }}
-                >
-                  <Orbit className="w-5 h-5 mr-2" />
-                  Enter the Chaos
-                </AudioButton>
+                <span style={{ transform: `rotate(${Math.sin(time * 0.6) * 3}deg)`, display: "inline-block" }}>
+                  <AudioButton
+                    description="Enter the chaos - Connect with me for collaboration"
+                    className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold px-8 py-4 rounded-full shadow-2xl inline-flex items-center"
+                  >
+                    <Orbit className="w-5 h-5 mr-2" />
+                    Enter the Chaos
+                  </AudioButton>
+                </span>
               </Link>
               <Link href="https://github.com">
-                <AudioButton
-                  description="Source magic - View the code behind the magic"
-                  className="border-orange-400 text-orange-700 hover:bg-orange-100 font-semibold px-8 py-4 rounded-full backdrop-blur-sm bg-white/30 border inline-flex items-center"
-                  style={{ transform: `rotate(${Math.cos(time * 0.7) * -3}deg)` }}
-                >
-                  <Github className="w-5 h-5 mr-2" />
-                  Source Magic
-                </AudioButton>
+                <span style={{ transform: `rotate(${Math.cos(time * 0.7) * -3}deg)`, display: "inline-block" }}>
+                  <AudioButton
+                    description="Source magic - View the code behind the magic"
+                    className="border-orange-400 text-orange-700 hover:bg-orange-100 font-semibold px-8 py-4 rounded-full backdrop-blur-sm bg-white/30 border inline-flex items-center"
+                  >
+                    <Github className="w-5 h-5 mr-2" />
+                    Source Magic
+                  </AudioButton>
+                </span>
               </Link>
             </div>
           </div>
@@ -794,7 +800,7 @@ export default function HomePage() {
 
             <div className="relative max-w-7xl mx-auto" style={{ minHeight: "1400px", paddingTop: "200px", paddingBottom: "200px" }}>
               {projects.map((project, i) => {
-                const sizeClasses = {
+                const sizeClasses: Record<"small" | "medium" | "large", string> = {
                   small: "w-80 h-64",
                   medium: "w-96 h-80",
                   large: "w-[500px] h-96",
@@ -804,7 +810,7 @@ export default function HomePage() {
                   <Card
                     key={i}
                     onClick={() => openProjectModal(project.id)}
-                    className={`absolute group cursor-pointer transition-all duration-700 hover:scale-110 hover:z-30 ${sizeClasses[project.size]} shadow-2xl`}
+                    className={`absolute group cursor-pointer transition-all duration-700 hover:scale-110 hover:z-30 ${sizeClasses[project.size as "small" | "medium" | "large"]} shadow-2xl`}
                     style={{
                       left: `${project.position.x}%`,
                       top: `${project.position.y + i * 150}px`,
@@ -898,8 +904,6 @@ export default function HomePage() {
           </section>
         </section>
       </AudioSection>
-
-      <ResumeTemplate />
     </div>
   )
 }
