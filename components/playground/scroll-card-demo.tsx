@@ -155,7 +155,3 @@ export function ScrollCardDemo() {
     </div>
   );
 }
-
-
-
-

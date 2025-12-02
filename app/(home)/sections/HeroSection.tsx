@@ -1,16 +1,16 @@
-'use client'
-
-import { Button } from '@/components/ui/button'
-import { Heart, Play, Star, Zap, Sparkles, ArrowRight } from 'lucide-react'
-import Link from 'next/link'
-import { useAnimation } from '@/hooks'
-import { AudioSection } from '@/components/audio-experience/audio-section'
-import { AudioButton } from '@/components/audio-experience/audio-button'
-import { BreathingBackground, FloatingOrb, FloatingElement } from '@/components/animations'
+"use client"
+import { Heart, Play, Star, Zap, Sparkles, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { useAnimation } from "@/hooks/useAnimation"
+import { AudioSection } from "@/components/audio-experience/audio-section"
+import { AudioButton } from "@/components/audio-experience/audio-button"
+import { BreathingBackground } from "@/components/animations/BreathingBackground"
+import { FloatingOrb } from "@/components/animations/FloatingOrb"
+import { FloatingElement } from "@/components/animations/FloatingElement"
 
 /**
  * HeroSection - Neural Depth Magic hero
- * 
+ *
  * Extracted from app/page.tsx
  * Features:
  * - Breathing background gradient

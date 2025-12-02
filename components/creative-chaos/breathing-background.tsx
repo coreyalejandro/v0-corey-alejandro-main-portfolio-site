@@ -1,22 +1,28 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useColorTheme } from "@/contexts/ColorThemeContext"
 
 interface BreathingBackgroundProps {
   colors?: string[]
   intensity?: number
 }
 
-export function BreathingBackground({
-  colors = ["rgba(251, 191, 36, 0.8)", "rgba(239, 68, 68, 0.6)", "rgba(194, 65, 12, 0.9)", "rgba(120, 53, 15, 1)"],
-  intensity = 1,
-}: BreathingBackgroundProps) {
+export function BreathingBackground({ colors, intensity = 1 }: BreathingBackgroundProps) {
   const [time, setTime] = useState(0)
+  const { currentPalette } = useColorTheme()
 
   useEffect(() => {
     const timer = setInterval(() => setTime((prev) => prev + 0.1), 100)
     return () => clearInterval(timer)
   }, [])
+
+  const activeColors = colors || [
+    currentPalette.breathing.primary,
+    currentPalette.breathing.secondary,
+    currentPalette.breathing.tertiary,
+    currentPalette.breathing.deep,
+  ]
 
   return (
     <div
@@ -24,15 +30,16 @@ export function BreathingBackground({
       style={{
         background: `
           radial-gradient(ellipse at ${20 + Math.sin(time) * 25 * intensity}% ${30 + Math.cos(time * 0.7) * 35 * intensity}%, 
-            ${colors[0]} 0%, 
-            ${colors[1]} 30%, 
-            ${colors[2]} 70%, 
-            ${colors[3]} 100%),
+            ${activeColors[0]} 0%, 
+            ${activeColors[1]} 30%, 
+            ${activeColors[2]} 70%, 
+            ${activeColors[3]} 100%),
           radial-gradient(ellipse at ${80 + Math.cos(time * 1.2) * 20 * intensity}% ${70 + Math.sin(time * 0.9) * 28 * intensity}%, 
-            rgba(251, 146, 60, 0.7) 0%, 
+            ${currentPalette.breathing.accent} 0%, 
             transparent 50%)
         `,
         transform: `scale(${1 + Math.sin(time * 0.5) * 0.15 * intensity}) rotate(${Math.sin(time * 0.3) * 8 * intensity}deg)`,
+        transition: "background 3s ease-in-out",
       }}
     />
   )

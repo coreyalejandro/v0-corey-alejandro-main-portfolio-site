@@ -28,13 +28,17 @@ export default function FloatingNav() {
     }
   }, [lastScrollY])
 
-  const navItems = [
-    { name: "Templates", href: "/templates", icon: CustomIcons.Templates },
+  const leftNavItems = [
     { name: "Design System", href: "/design-system", icon: CustomIcons.DesignSystem },
-    { name: "Components", href: "/components", icon: CustomIcons.Components },
+    { name: "Resume", href: "/templates/resume", icon: CustomIcons.Components },
+    { name: "Superpowers", href: "/#superpowers", icon: CustomIcons.DesignSystem },
+    { name: "Projects", href: "/#projects", icon: CustomIcons.Components },
+  ]
+
+  const rightNavItems = [
+    { name: "Templates", href: "/templates", icon: CustomIcons.Templates },
     { name: "Playground", href: "/playground", icon: CustomIcons.Playground },
     { name: "Documentation", href: "/documentation", icon: CustomIcons.Documentation },
-    { name: "Contact", href: "/contact", icon: CustomIcons.Contact },
   ]
 
   return (
@@ -43,37 +47,92 @@ export default function FloatingNav() {
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >
-      <div className="bg-gradient-to-r from-orange-800/95 via-red-800/95 to-amber-800/95 backdrop-blur-xl border border-orange-600/40 rounded-full px-6 py-3 shadow-2xl">
-        <div className="flex items-center space-x-6">
+      <div
+        className="backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl transition-all duration-[3000ms]"
+        style={{
+          background: "var(--theme-nav-bg)",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "var(--theme-card-border)",
+          boxShadow: "0 0 40px var(--theme-nav-glow)",
+        }}
+      >
+        <div className="flex items-center justify-center space-x-2">
+          {/* Left navigation items */}
+          <div className="flex items-center space-x-2">
+            {leftNavItems.map((item, index) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="group relative flex items-center space-x-2 px-3 py-2 rounded-full transition-all duration-300 hover:scale-105"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                <div className="group-hover:animate-pulse">
+                  <item.icon />
+                </div>
+                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors duration-300">
+                  {item.name}
+                </span>
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
+              </Link>
+            ))}
+          </div>
+
+          <div
+            className="h-8 w-px mx-2 transition-colors duration-[3000ms]"
+            style={{ backgroundColor: "var(--theme-card-border)" }}
+          />
+
           <Link
             href="/"
-            className="group relative flex items-center space-x-2 px-5 py-2 rounded-full bg-white/10 border border-orange-400/30 transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:border-orange-300/50"
+            className="group relative flex items-center space-x-2 px-8 py-3 rounded-full transition-all duration-300 hover:scale-110 mx-2"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              borderWidth: "2px",
+              borderStyle: "solid",
+              borderColor: "var(--theme-card-border)",
+              transition: "all 3s ease-in-out",
+            }}
           >
             <CustomIcons.Home />
-            <span className="text-base font-bold text-white tracking-wide">Corey Alejandro</span>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/0 via-red-500/0 to-amber-500/0 group-hover:from-orange-500/20 group-hover:via-red-500/20 group-hover:to-amber-500/20 transition-all duration-300" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-lg font-bold text-white tracking-wide">Corey</span>
+              <span className="text-lg font-bold text-white tracking-wide">Alejandro</span>
+            </div>
+            <div
+              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+              style={{ backgroundColor: "var(--theme-accent)" }}
+            />
           </Link>
 
-          <div className="h-8 w-px bg-orange-400/30" />
+          <div
+            className="h-8 w-px mx-2 transition-colors duration-[3000ms]"
+            style={{ backgroundColor: "var(--theme-card-border)" }}
+          />
 
-          {navItems.map((item, index) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="group relative flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/20 hover:scale-105"
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
-              <div className="group-hover:animate-pulse">
-                <item.icon />
-              </div>
-              <span className="text-sm font-medium text-orange-100 group-hover:text-white transition-colors duration-300">
-                {item.name}
-              </span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
-            </Link>
-          ))}
+          {/* Right navigation items */}
+          <div className="flex items-center space-x-2">
+            {rightNavItems.map((item, index) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="group relative flex items-center space-x-2 px-3 py-2 rounded-full transition-all duration-300 hover:scale-105"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                <div className="group-hover:animate-pulse">
+                  <item.icon />
+                </div>
+                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors duration-300">
+                  {item.name}
+                </span>
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </nav>

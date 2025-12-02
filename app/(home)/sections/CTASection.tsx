@@ -1,18 +1,18 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Heart, ArrowRight, Star, Eye, Waves, Palette, Zap, Sparkles, Orbit } from 'lucide-react'
-import Link from 'next/link'
-import { useAnimation } from '@/hooks'
-import { AudioSection } from '@/components/audio-experience/audio-section'
-import { AudioButton } from '@/components/audio-experience/audio-button'
-import { BreathingBackground } from '@/components/animations'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Heart, ArrowRight, Star, Eye, Waves, Palette, Zap, Sparkles, Orbit } from "lucide-react"
+import Link from "next/link"
+import { useAnimation } from "@/hooks/useAnimation"
+import { AudioSection } from "@/components/audio-experience/audio-section"
+import { AudioButton } from "@/components/audio-experience/audio-button"
+import { BreathingBackground } from "@/components/animations/BreathingBackground"
 
 /**
  * CTASection - "Build the Future" CTA section
- * 
+ *
  * Features:
  * - Living conic gradient background
  * - Email signup form
@@ -23,7 +23,7 @@ import { BreathingBackground } from '@/components/animations'
  */
 export function CTASection() {
   const { time, mousePosition } = useAnimation()
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("")
 
   return (
     <AudioSection
@@ -150,8 +150,10 @@ function FeatureCards({ time }: { time: number }) {
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(${135 + Math.sin(time * 0.5) * 15}deg, rgba(251, 191, 36, 0.05) 0%, rgba(239, 68, 68, 0.08) 50%, rgba(194, 65, 12, 0.05) 100%)`,
+          background: `linear-gradient(${135 + Math.sin(time * 0.5) * 15}deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent))`,
           clipPath: `polygon(0 ${5 + Math.sin(time * 0.3) * 3}%, 100% 0%, 100% ${95 + Math.cos(time * 0.4) * 3}%, 0% 100%)`,
+          opacity: 0.1,
+          transition: "background 3s ease-in-out",
         }}
       />
       <div className="relative container mx-auto px-4">
@@ -163,21 +165,57 @@ function FeatureCards({ time }: { time: number }) {
                 transform: `translate(${Math.sin(time * 0.6) * 12}px, ${Math.cos(time * 0.4) * 8}px) rotate(${Math.sin(time * 0.3) * 0.5}deg)`,
               }}
             >
-              <div className="bg-gradient-to-br from-white via-amber-50 to-orange-100 rounded-[3rem] p-12 shadow-2xl border border-orange-200/30">
+              <div
+                className="rounded-[3rem] p-12 shadow-2xl"
+                style={{
+                  background: "linear-gradient(135deg, var(--theme-card), var(--theme-primary))",
+                  borderColor: "var(--theme-border)",
+                  border: "1px solid",
+                  transition: "all 3s ease-in-out",
+                }}
+              >
                 <div className="flex items-start space-x-6">
-                  <div className="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-4">
+                  <div
+                    className="rounded-2xl p-4"
+                    style={{
+                      background: "linear-gradient(135deg, var(--theme-accent), var(--theme-secondary))",
+                      transition: "background 3s ease-in-out",
+                    }}
+                  >
                     <Eye className="w-12 h-12 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-4xl font-black mb-4">Neural Depth Vision</h3>
+                    <h3
+                      className="text-4xl font-black mb-4"
+                      style={{
+                        color: "var(--theme-text)",
+                        transition: "color 3s ease-in-out",
+                      }}
+                    >
+                      Neural Depth Vision
+                    </h3>
                     <p className="text-xl text-muted-foreground text-pretty leading-relaxed mb-6">
                       Interfaces that see, feel, and respond to human emotion
                     </p>
                     <div className="flex flex-wrap gap-3">
-                      <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">
+                      <span
+                        className="px-4 py-2 rounded-full text-sm font-medium"
+                        style={{
+                          backgroundColor: "var(--theme-card)",
+                          color: "var(--theme-text)",
+                          transition: "all 3s ease-in-out",
+                        }}
+                      >
                         Real-time depth
                       </span>
-                      <span className="bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium">
+                      <span
+                        className="px-4 py-2 rounded-full text-sm font-medium"
+                        style={{
+                          backgroundColor: "var(--theme-card)",
+                          color: "var(--theme-text)",
+                          transition: "all 3s ease-in-out",
+                        }}
+                      >
                         Emotion detection
                       </span>
                     </div>
@@ -193,13 +231,32 @@ function FeatureCards({ time }: { time: number }) {
                   transform: `translate(${-Math.cos(time * 0.7) * 8}px, ${Math.sin(time * 0.5) * 6}px)`,
                 }}
               >
-                <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-6 text-white transform rotate-2">
+                <div
+                  className="rounded-2xl p-6 text-white transform rotate-2"
+                  style={{
+                    background: "linear-gradient(135deg, var(--theme-accent), var(--theme-secondary))",
+                    transition: "background 3s ease-in-out",
+                  }}
+                >
                   <Waves className="w-8 h-8 mb-3" />
                   <h4 className="text-xl font-bold mb-2">Fluid Motion</h4>
                   <p className="text-sm opacity-90">Every interaction flows</p>
                 </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg transform -rotate-1">
-                  <Palette className="w-8 h-8 text-orange-600 mb-3" />
+                <div
+                  className="rounded-2xl p-6 shadow-lg transform -rotate-1"
+                  style={{
+                    backgroundColor: "var(--theme-card)",
+                    color: "var(--theme-text)",
+                    transition: "all 3s ease-in-out",
+                  }}
+                >
+                  <Palette
+                    className="w-8 h-8 mb-3"
+                    style={{
+                      color: "var(--theme-accent)",
+                      transition: "color 3s ease-in-out",
+                    }}
+                  />
                   <h4 className="text-xl font-bold mb-2">Living Colors</h4>
                   <p className="text-sm text-muted-foreground">Gradients that breathe</p>
                 </div>
@@ -214,24 +271,36 @@ function FeatureCards({ time }: { time: number }) {
 
 function SuperpowersSection({ time }: { time: number }) {
   const skills = [
-    { name: 'Neural Motion', level: 95, icon: Zap, position: { x: 20, y: 30 } },
-    { name: 'Chaos Design', level: 98, icon: Palette, position: { x: 70, y: 20 } },
-    { name: 'Joy Engineering', level: 92, icon: Sparkles, position: { x: 60, y: 70 } },
-    { name: 'Reality Bending', level: 89, icon: Orbit, position: { x: 15, y: 80 } },
-    { name: 'Soul Coding', level: 94, icon: Star, position: { x: 80, y: 50 } },
+    { name: "Neural Motion", level: 95, icon: Zap, position: { x: 20, y: 30 } },
+    { name: "Chaos Design", level: 98, icon: Palette, position: { x: 70, y: 20 } },
+    { name: "Joy Engineering", level: 92, icon: Sparkles, position: { x: 60, y: 70 } },
+    { name: "Reality Bending", level: 89, icon: Orbit, position: { x: 15, y: 80 } },
+    { name: "Soul Coding", level: 94, icon: Star, position: { x: 80, y: 50 } },
   ]
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section id="superpowers" className="relative py-32 overflow-hidden">
       <div
-        className="absolute inset-0 bg-gradient-to-br from-orange-600/20 via-red-600/20 to-amber-600/20"
-        style={{ transform: `rotate(${time * 0.5}deg) scale(${1.2 + Math.sin(time) * 0.1})` }}
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(135deg, var(--theme-primary), var(--theme-secondary))",
+          opacity: 0.2,
+          transform: `rotate(${time * 0.5}deg) scale(${1.2 + Math.sin(time) * 0.1})`,
+          transition: "background 3s ease-in-out",
+        }}
       />
 
       <div className="relative text-center mb-20">
         <h2
-          className="text-8xl font-black text-transparent bg-gradient-to-r from-orange-700 to-red-700 bg-clip-text"
-          style={{ transform: `rotate(${Math.sin(time * 0.3) * 3}deg)` }}
+          className="text-8xl font-black"
+          style={{
+            background: "linear-gradient(90deg, var(--theme-accent), var(--theme-text))",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            transform: `rotate(${Math.sin(time * 0.3) * 3}deg)`,
+            transition: "background 3s ease-in-out",
+          }}
         >
           SUPERPOWERS
         </h2>
@@ -248,13 +317,41 @@ function SuperpowersSection({ time }: { time: number }) {
               transform: `translate(-50%, -50%) rotate(${Math.sin(time * 0.4 + i) * 10}deg) scale(${1 + Math.sin(time * 0.6 + i) * 0.1})`,
             }}
           >
-            <div className="bg-white/10 backdrop-blur-sm border border-orange-300/30 rounded-2xl p-6 text-center group-hover:scale-125 transition-all duration-500 shadow-2xl">
+            <div
+              className="backdrop-blur-sm rounded-2xl p-6 text-center group-hover:scale-125 transition-all duration-500 shadow-2xl"
+              style={{
+                backgroundColor: "var(--theme-card)",
+                borderColor: "var(--theme-border)",
+                border: "1px solid",
+                transition: "all 3s ease-in-out",
+              }}
+            >
               <skill.icon
-                className="w-12 h-12 mx-auto mb-4 text-orange-600"
-                style={{ transform: `rotate(${time * 20 + i * 45}deg)` }}
+                className="w-12 h-12 mx-auto mb-4"
+                style={{
+                  transform: `rotate(${time * 20 + i * 45}deg)`,
+                  color: "var(--theme-accent)",
+                  transition: "color 3s ease-in-out",
+                }}
               />
-              <div className="text-orange-800 font-bold text-lg">{skill.name}</div>
-              <div className="text-3xl font-black text-red-600 mt-2">{skill.level}%</div>
+              <div
+                className="font-bold text-lg"
+                style={{
+                  color: "var(--theme-text)",
+                  transition: "color 3s ease-in-out",
+                }}
+              >
+                {skill.name}
+              </div>
+              <div
+                className="text-3xl font-black mt-2"
+                style={{
+                  color: "var(--theme-accent)",
+                  transition: "color 3s ease-in-out",
+                }}
+              >
+                {skill.level}%
+              </div>
             </div>
           </div>
         ))}
@@ -268,8 +365,15 @@ function FinalCTA({ time }: { time: number }) {
     <section className="relative py-32 text-center">
       <div className="max-w-4xl mx-auto space-y-12" style={{ transform: `translateY(${Math.sin(time * 0.5) * 20}px)` }}>
         <h2
-          className="text-9xl font-black text-transparent bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 bg-clip-text leading-none"
-          style={{ transform: `rotate(${Math.sin(time * 0.2) * 2}deg)` }}
+          className="text-9xl font-black leading-none"
+          style={{
+            background: "linear-gradient(90deg, var(--theme-accent), var(--theme-secondary), var(--theme-accent))",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            transform: `rotate(${Math.sin(time * 0.2) * 2}deg)`,
+            transition: "background 3s ease-in-out",
+          }}
         >
           LET'S CREATE
           <br />
@@ -283,7 +387,11 @@ function FinalCTA({ time }: { time: number }) {
           <Link href="/contact">
             <AudioButton
               description="Start the chaos - Begin your journey"
-              className="bg-gradient-to-r from-orange-600 to-red-600 text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl inline-flex items-center"
+              className="text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl inline-flex items-center"
+              style={{
+                background: "linear-gradient(135deg, var(--theme-accent), var(--theme-secondary))",
+                transition: "background 3s ease-in-out",
+              }}
             >
               <Orbit className="w-6 h-6 mr-3" />
               Start the Chaos

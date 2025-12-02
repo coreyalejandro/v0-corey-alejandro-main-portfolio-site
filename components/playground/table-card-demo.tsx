@@ -123,7 +123,3 @@ export function TableCardDemo() {
     </div>
   );
 }
-
-
-
-

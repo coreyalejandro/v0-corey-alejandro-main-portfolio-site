@@ -5,6 +5,8 @@ import "./globals.css"
 import { Suspense } from "react"
 import { AudioEngineProvider } from "@/components/audio-experience/audio-engine"
 import { AudioToggle } from "@/components/audio-experience/audio-toggle"
+import { AnimationProvider } from "@/contexts/AnimationContext"
+import { ColorThemeProvider } from "@/contexts/ColorThemeContext"
 
 export const metadata: Metadata = {
   title: "Creative Chaos - Neural Depth Design System",
@@ -20,13 +22,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans" suppressHydrationWarning>
-        <AudioEngineProvider>
-          <Suspense fallback={null}>
-            <FloatingNav />
-          </Suspense>
-          <AudioToggle />
-          {children}
-        </AudioEngineProvider>
+        <ColorThemeProvider>
+          <AnimationProvider>
+            <AudioEngineProvider>
+              <Suspense fallback={null}>
+                <FloatingNav />
+              </Suspense>
+              <AudioToggle />
+              {children}
+            </AudioEngineProvider>
+          </AnimationProvider>
+        </ColorThemeProvider>
       </body>
     </html>
   )

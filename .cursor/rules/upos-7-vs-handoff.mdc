@@ -61,7 +61,7 @@ The UPOS-7-VS project uses `HANDOFF.md` as the single source of truth for:
 
 **Template for new HANDOFF.md:**
 
-```markdown
+\`\`\`markdown
 # 🚀 Agent Handoff: [Project Name]
 
 **Date:** [Current Date]
@@ -135,7 +135,7 @@ The UPOS-7-VS project uses `HANDOFF.md` as the single source of truth for:
 **Status:** [Current status]
 **Recommendation:** [What to do next]
 **Confidence:** [High/Medium/Low] - [reasoning]
-```
+\`\`\`
 
 ### When to Update HANDOFF.md
 
@@ -235,7 +235,7 @@ Before ending a conversation, verify:
 
 Update `HANDOFF.md` using the existing structure:
 
-```markdown
+\`\`\`markdown
 # 🚀 Agent Handoff: UPOS-7-VS Multiplatform Project
 
 **Date:** [Current Date]
@@ -261,7 +261,7 @@ Update `HANDOFF.md` using the existing structure:
 
 ## 📞 Quick Reference
 [Project metadata, last commit, etc.]
-```
+\`\`\`
 
 ## CONSTRAINTS
 
