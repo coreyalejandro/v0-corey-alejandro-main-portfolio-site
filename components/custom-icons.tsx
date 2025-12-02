@@ -139,6 +139,23 @@ export const CustomIcons = {
       <circle cx="16" cy="12" r="1" fill="currentColor" />
     </svg>
   ),
+  Playground: () => (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      className="text-orange-200 group-hover:text-white transition-colors duration-300"
+    >
+      <path
+        d="M9 3H15M10 3V5M14 3V5M12 5V10M12 10L7 17C6.18 18.16 6.59 19.78 7.87 20.44C9.17 21.11 10.76 21.23 12 21C13.24 21.23 14.83 21.11 16.13 20.44C17.41 19.78 17.82 18.16 17 17L12 10Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
   Sparkles: () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white transition-colors duration-300">
       <path

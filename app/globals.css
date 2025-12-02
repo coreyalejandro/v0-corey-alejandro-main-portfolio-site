@@ -123,3 +123,152 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 3D Card Path Styles */
+
+/* Scene: add perspective so 3D tilt is visible */
+.card-path-root {
+  position: relative;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+/* Column of cards that builds the road */
+.card-path-list {
+  position: relative;
+  transform-style: preserve-3d;
+  padding-bottom: 12rem;
+}
+
+/* Connective underglow between cards (subtle “road” strip) */
+.card-path-list::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 18rem;
+  transform: translateX(-50%) rotateX(72deg);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(148, 163, 184, 0.18),
+    transparent 70%
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Each card lives in 3D space */
+.card-path-item {
+  position: relative;
+  width: min(100%, 32rem);
+  margin: 0 auto 6rem auto;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+/* Base card surface */
+.card-path-surface {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(15, 23, 42, 0.9),
+      rgba(15, 23, 42, 1)
+    );
+}
+
+/* Extra glow & path highlight once activated */
+.card-path-surface--active::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.45),
+    rgba(15, 23, 42, 0) 60%
+  );
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Content inside each card */
+
+.card-path-inner {
+  position: relative;
+  padding: 1.9rem 1.9rem 1.9rem 1.9rem;
+}
+
+.card-path-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.65rem;
+  color: #94a3b8;
+  margin-bottom: 0.75rem;
+}
+
+.card-path-title {
+  font-size: 1.35rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #e5e7eb;
+  margin: 0 0 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .card-path-title {
+    font-size: 1.6rem;
+  }
+}
+
+.card-path-body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #cbd5f5;
+}
+
+/* Portal on the last card */
+
+.card-path-portal {
+  position: relative;
+  margin-top: 1.6rem;
+  padding: 1.8rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-path-portal-core {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #e5e7eb,
+    #38bdf8 40%,
+    #020617 75%
+  );
+  filter: blur(0.5px);
+}
+
+.card-path-portal-glow {
+  position: absolute;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.35),
+    rgba(15, 23, 42, 0.05) 65%
+  );
+  filter: blur(10px);
+  opacity: 0.85;
+  pointer-events: none;
+}

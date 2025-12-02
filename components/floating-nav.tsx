@@ -32,6 +32,7 @@ export default function FloatingNav() {
     { name: "Templates", href: "/templates", icon: CustomIcons.Templates },
     { name: "Design System", href: "/design-system", icon: CustomIcons.DesignSystem },
     { name: "Components", href: "/components", icon: CustomIcons.Components },
+    { name: "Playground", href: "/playground", icon: CustomIcons.Playground },
     { name: "Documentation", href: "/documentation", icon: CustomIcons.Documentation },
     { name: "Contact", href: "/contact", icon: CustomIcons.Contact },
   ]

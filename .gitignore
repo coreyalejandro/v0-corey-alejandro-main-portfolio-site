@@ -17,7 +17,10 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
+.env
+.env.local
+.env*.local
+# .envrc is committed (contains variable names, not secrets)
 
 # vercel
 .vercel
