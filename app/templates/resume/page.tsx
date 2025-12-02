@@ -84,18 +84,17 @@ export default function ResumeTemplate() {
       position={{ x: 0, y: 6, z: -8 }}
     >
       <section className="relative min-h-screen py-32 mb-16">
-        {/* Breathing Background - Consistent with other templates */}
         <div
-          className="absolute inset-0 rounded-3xl"
+          className="absolute inset-0 rounded-3xl transition-all duration-[3000ms]"
           style={{
             background: `
               radial-gradient(ellipse at ${20 + Math.sin(time) * 10}% ${30 + Math.cos(time * 0.7) * 15}%, 
-                rgba(251, 191, 36, 0.8) 0%, 
-                rgba(239, 68, 68, 0.6) 30%, 
-                rgba(194, 65, 12, 0.9) 70%, 
-                rgba(120, 53, 15, 1) 100%),
+                var(--theme-primary-rgb, 251, 191, 36) 0%, 
+                var(--theme-secondary-rgb, 239, 68, 68) 30%, 
+                var(--theme-accent-rgb, 194, 65, 12) 70%, 
+                rgba(20, 20, 30, 1) 100%),
               radial-gradient(ellipse at ${80 + Math.cos(time * 1.2) * 8}% ${70 + Math.sin(time * 0.9) * 12}%, 
-                rgba(251, 146, 60, 0.7) 0%, 
+                var(--theme-primary-rgb, 251, 146, 60) 0%, 
                 transparent 50%)
             `,
             transform: `scale(${1 + Math.sin(time * 0.5) * 0.05}) rotate(${Math.sin(time * 0.3) * 2}deg)`,
@@ -136,14 +135,18 @@ export default function ResumeTemplate() {
               }}
             >
               <h1
-                className="text-6xl md:text-8xl font-black text-white leading-none mb-4"
+                className="text-6xl md:text-8xl font-black leading-none mb-4 transition-colors duration-[3000ms]"
                 style={{
                   transform: `rotate(${Math.sin(time * 0.2) * 1}deg)`,
+                  color: "var(--theme-text)",
                 }}
               >
                 <span className="block transform -rotate-1">Resume</span>
               </h1>
-              <p className="text-xl text-white/90 max-w-2xl">
+              <p
+                className="text-xl max-w-2xl transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-text-secondary)" }}
+              >
                 Download my professional resume to explore my experience, skills, and achievements
               </p>
             </div>
@@ -151,9 +154,11 @@ export default function ResumeTemplate() {
             <AudioButton
               onClick={handleDownloadPDF}
               description="Download resume as PDF"
-              className="bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 hover:to-red-400 text-white font-bold px-8 py-4 rounded-full shadow-2xl inline-flex items-center gap-3 transform hover:scale-110 transition-all duration-300"
+              className="font-bold px-8 py-4 rounded-full shadow-2xl inline-flex items-center gap-3 transform hover:scale-110 transition-all duration-300"
               style={{
                 transform: `rotate(${Math.sin(time * 0.6) * 2}deg)`,
+                background: "var(--theme-gradient)",
+                color: "var(--theme-text)",
               }}
             >
               <Download className="w-5 h-5" />
@@ -164,49 +169,71 @@ export default function ResumeTemplate() {
           {/* Resume Content - Printable Version */}
           <div
             ref={resumeRef}
-            className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 max-w-4xl mx-auto relative overflow-hidden"
+            className="rounded-3xl shadow-2xl p-8 md:p-12 max-w-4xl mx-auto relative overflow-hidden transition-all duration-[3000ms]"
             style={{
               transform: `perspective(1000px) rotateX(${mousePosition.y * 0.005}deg) rotateY(${mousePosition.x * 0.005}deg)`,
+              backgroundColor: "var(--theme-card)",
             }}
           >
-            {/* Subtle gradient overlay */}
             <div
-              className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-orange-500 via-red-500 to-amber-500"
+              className="absolute top-0 left-0 right-0 h-2 transition-all duration-[3000ms]"
               style={{
                 transform: `scaleX(${1 + Math.sin(time * 0.3) * 0.1})`,
+                background: "var(--theme-gradient)",
               }}
             />
 
             {/* Resume Header */}
-            <div className="relative mb-8 pb-8 border-b-2 border-orange-100">
+            <div
+              className="relative mb-8 pb-8 transition-colors duration-[3000ms]"
+              style={{ borderBottom: "2px solid var(--theme-border)" }}
+            >
               <h2
-                className="text-4xl md:text-5xl font-black text-transparent bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 bg-clip-text mb-4"
+                className="text-4xl md:text-5xl font-black mb-4 transition-colors duration-[3000ms]"
                 style={{
                   transform: `translateX(${Math.sin(time * 0.2) * 2}px)`,
+                  color: "var(--theme-primary)",
                 }}
               >
                 Corey Alejandro
               </h2>
-              <p className="text-xl text-muted-foreground mb-6">Creative Developer & Design System Architect</p>
+              <p
+                className="text-xl mb-6 transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-text-secondary)" }}
+              >
+                Creative Developer & Design System Architect
+              </p>
 
-              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+              <div
+                className="flex flex-wrap gap-4 text-sm transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-text-secondary)" }}
+              >
                 <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-orange-600" />
+                  <Mail
+                    className="w-4 h-4 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-primary)" }}
+                  />
                   <span>corey@example.com</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-orange-600" />
+                  <Phone
+                    className="w-4 h-4 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-primary)" }}
+                  />
                   <span>+1 (555) 123-4567</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-orange-600" />
+                  <MapPin
+                    className="w-4 h-4 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-primary)" }}
+                  />
                   <span>San Francisco, CA</span>
                 </div>
                 <a
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-orange-600 transition-colors"
+                  className="flex items-center gap-2 hover:opacity-70 transition-all duration-300"
                 >
                   <Github className="w-4 h-4" />
                   <span>github.com/coreyalejandro</span>
@@ -215,7 +242,7 @@ export default function ResumeTemplate() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-orange-600 transition-colors"
+                  className="flex items-center gap-2 hover:opacity-70 transition-all duration-300"
                 >
                   <Linkedin className="w-4 h-4" />
                   <span>linkedin.com/in/coreyalejandro</span>
@@ -225,46 +252,87 @@ export default function ResumeTemplate() {
 
             {/* Professional Summary */}
             <section className="mb-8">
-              <h3 className="text-2xl font-bold text-orange-600 mb-4 flex items-center gap-2">
+              <h3
+                className="text-2xl font-bold mb-4 flex items-center gap-2 transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-primary)" }}
+              >
                 <Sparkles className="w-5 h-5" />
                 Professional Summary
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p
+                className="leading-relaxed transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-text-secondary)" }}
+              >
                 Creative developer and design system architect with a passion for building accessible, joyful web
                 experiences. Specialized in creating innovative interfaces that combine cutting-edge technology with
-                emotional design. Expert in React, TypeScript, and Next.js with a strong focus on accessibility and
-                user experience.
+                emotional design. Expert in React, TypeScript, and Next.js with a strong focus on accessibility and user
+                experience.
               </p>
             </section>
 
             {/* Skills */}
             <section className="mb-8">
-              <h3 className="text-2xl font-bold text-orange-600 mb-4 flex items-center gap-2">
+              <h3
+                className="text-2xl font-bold mb-4 flex items-center gap-2 transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-primary)" }}
+              >
                 <Zap className="w-5 h-5" />
                 Technical Skills
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold mb-2">Frontend</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4
+                    className="font-semibold mb-2 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text)" }}
+                  >
+                    Frontend
+                  </h4>
+                  <p
+                    className="text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
                     React, Next.js, TypeScript, Tailwind CSS, HTML5, CSS3, JavaScript (ES6+)
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Design & Tools</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4
+                    className="font-semibold mb-2 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text)" }}
+                  >
+                    Design & Tools
+                  </h4>
+                  <p
+                    className="text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
                     Figma, Adobe Creative Suite, Web Audio API, Accessibility (WCAG 2.1 AA), Design Systems
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Backend & DevOps</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4
+                    className="font-semibold mb-2 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text)" }}
+                  >
+                    Backend & DevOps
+                  </h4>
+                  <p
+                    className="text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
                     Node.js, API Development, Vercel, Git, CI/CD, Performance Optimization
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Specializations</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4
+                    className="font-semibold mb-2 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text)" }}
+                  >
+                    Specializations
+                  </h4>
+                  <p
+                    className="text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
                     3D Web Graphics, Spatial Audio, Creative Coding, Motion Design, User Experience
                   </p>
                 </div>
@@ -273,21 +341,45 @@ export default function ResumeTemplate() {
 
             {/* Experience */}
             <section className="mb-8">
-              <h3 className="text-2xl font-bold text-orange-600 mb-4 flex items-center gap-2">
+              <h3
+                className="text-2xl font-bold mb-4 flex items-center gap-2 transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-primary)" }}
+              >
                 <Star className="w-5 h-5" />
                 Professional Experience
               </h3>
 
               <div className="space-y-6">
-                <div className="border-l-4 border-orange-500 pl-6">
+                <div
+                  className="pl-6 transition-all duration-[3000ms]"
+                  style={{ borderLeft: "4px solid var(--theme-primary)" }}
+                >
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                     <div>
-                      <h4 className="font-bold text-lg">Senior Creative Developer</h4>
-                      <p className="text-orange-600 font-medium">Creative Chaos Design System</p>
+                      <h4
+                        className="font-bold text-lg transition-colors duration-[3000ms]"
+                        style={{ color: "var(--theme-text)" }}
+                      >
+                        Senior Creative Developer
+                      </h4>
+                      <p
+                        className="font-medium transition-colors duration-[3000ms]"
+                        style={{ color: "var(--theme-primary)" }}
+                      >
+                        Creative Chaos Design System
+                      </p>
                     </div>
-                    <span className="text-muted-foreground text-sm mt-1 md:mt-0">2023 - Present</span>
+                    <span
+                      className="text-sm mt-1 md:mt-0 transition-colors duration-[3000ms]"
+                      style={{ color: "var(--theme-text-secondary)" }}
+                    >
+                      2023 - Present
+                    </span>
                   </div>
-                  <ul className="list-disc list-inside text-muted-foreground space-y-1 text-sm">
+                  <ul
+                    className="list-disc list-inside space-y-1 text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
                     <li>
                       Architected and developed a revolutionary design system with 3D spatial audio accessibility
                       features
@@ -303,18 +395,37 @@ export default function ResumeTemplate() {
                   </ul>
                 </div>
 
-                <div className="border-l-4 border-red-500 pl-6">
+                <div
+                  className="pl-6 transition-all duration-[3000ms]"
+                  style={{ borderLeft: "4px solid var(--theme-secondary)" }}
+                >
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                     <div>
-                      <h4 className="font-bold text-lg">Frontend Engineer</h4>
-                      <p className="text-orange-600 font-medium">Tech Innovation Co.</p>
+                      <h4
+                        className="font-bold text-lg transition-colors duration-[3000ms]"
+                        style={{ color: "var(--theme-text)" }}
+                      >
+                        Frontend Engineer
+                      </h4>
+                      <p
+                        className="font-medium transition-colors duration-[3000ms]"
+                        style={{ color: "var(--theme-primary)" }}
+                      >
+                        Tech Innovation Co.
+                      </p>
                     </div>
-                    <span className="text-muted-foreground text-sm mt-1 md:mt-0">2021 - 2023</span>
+                    <span
+                      className="text-sm mt-1 md:mt-0 transition-colors duration-[3000ms]"
+                      style={{ color: "var(--theme-text-secondary)" }}
+                    >
+                      2021 - 2023
+                    </span>
                   </div>
-                  <ul className="list-disc list-inside text-muted-foreground space-y-1 text-sm">
-                    <li>
-                      Developed responsive web applications using React and Next.js serving 100K+ monthly users
-                    </li>
+                  <ul
+                    className="list-disc list-inside space-y-1 text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
+                    <li>Developed responsive web applications using React and Next.js serving 100K+ monthly users</li>
                     <li>
                       Collaborated with design team to implement pixel-perfect UI components with focus on accessibility
                     </li>
@@ -323,15 +434,36 @@ export default function ResumeTemplate() {
                   </ul>
                 </div>
 
-                <div className="border-l-4 border-amber-500 pl-6">
+                <div
+                  className="pl-6 transition-all duration-[3000ms]"
+                  style={{ borderLeft: "4px solid var(--theme-accent)" }}
+                >
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                     <div>
-                      <h4 className="font-bold text-lg">UI/UX Developer</h4>
-                      <p className="text-orange-600 font-medium">Digital Agency</p>
+                      <h4
+                        className="font-bold text-lg transition-colors duration-[3000ms]"
+                        style={{ color: "var(--theme-text)" }}
+                      >
+                        UI/UX Developer
+                      </h4>
+                      <p
+                        className="font-medium transition-colors duration-[3000ms]"
+                        style={{ color: "var(--theme-primary)" }}
+                      >
+                        Digital Agency
+                      </p>
                     </div>
-                    <span className="text-muted-foreground text-sm mt-1 md:mt-0">2019 - 2021</span>
+                    <span
+                      className="text-sm mt-1 md:mt-0 transition-colors duration-[3000ms]"
+                      style={{ color: "var(--theme-text-secondary)" }}
+                    >
+                      2019 - 2021
+                    </span>
                   </div>
-                  <ul className="list-disc list-inside text-muted-foreground space-y-1 text-sm">
+                  <ul
+                    className="list-disc list-inside space-y-1 text-sm transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
                     <li>
                       Created engaging user interfaces for clients across various industries including e-commerce and
                       SaaS
@@ -345,23 +477,59 @@ export default function ResumeTemplate() {
 
             {/* Education */}
             <section className="mb-8">
-              <h3 className="text-2xl font-bold text-orange-600 mb-4">Education</h3>
-              <div className="border-l-4 border-purple-500 pl-6">
+              <h3
+                className="text-2xl font-bold mb-4 transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-primary)" }}
+              >
+                Education
+              </h3>
+              <div
+                className="pl-6 transition-all duration-[3000ms]"
+                style={{ borderLeft: "4px solid var(--theme-accent)" }}
+              >
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                   <div>
-                    <h4 className="font-bold text-lg">Bachelor of Science in Computer Science</h4>
-                    <p className="text-orange-600 font-medium">University of Technology</p>
+                    <h4
+                      className="font-bold text-lg transition-colors duration-[3000ms]"
+                      style={{ color: "var(--theme-text)" }}
+                    >
+                      Bachelor of Science in Computer Science
+                    </h4>
+                    <p
+                      className="font-medium transition-colors duration-[3000ms]"
+                      style={{ color: "var(--theme-primary)" }}
+                    >
+                      University of Technology
+                    </p>
                   </div>
-                  <span className="text-muted-foreground text-sm mt-1 md:mt-0">2015 - 2019</span>
+                  <span
+                    className="text-sm mt-1 md:mt-0 transition-colors duration-[3000ms]"
+                    style={{ color: "var(--theme-text-secondary)" }}
+                  >
+                    2015 - 2019
+                  </span>
                 </div>
-                <p className="text-muted-foreground text-sm">Focus: Human-Computer Interaction & Web Development</p>
+                <p
+                  className="text-sm transition-colors duration-[3000ms]"
+                  style={{ color: "var(--theme-text-secondary)" }}
+                >
+                  Focus: Human-Computer Interaction & Web Development
+                </p>
               </div>
             </section>
 
             {/* Achievements */}
             <section>
-              <h3 className="text-2xl font-bold text-orange-600 mb-4">Key Achievements</h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 text-sm">
+              <h3
+                className="text-2xl font-bold mb-4 transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-primary)" }}
+              >
+                Key Achievements
+              </h3>
+              <ul
+                className="list-disc list-inside space-y-2 text-sm transition-colors duration-[3000ms]"
+                style={{ color: "var(--theme-text-secondary)" }}
+              >
                 <li>Developed award-winning portfolio site featured on Awwwards</li>
                 <li>Open source contributor with 50+ GitHub repositories</li>
                 <li>Speaker at Web Accessibility Conference 2024</li>
@@ -372,13 +540,21 @@ export default function ResumeTemplate() {
 
           {/* Additional CTA */}
           <div className="text-center mt-12">
-            <p className="text-white/90 text-lg mb-6">
+            <p
+              className="text-lg mb-6 transition-colors duration-[3000ms]"
+              style={{ color: "var(--theme-text-secondary)" }}
+            >
               Interested in working together? Let's create something amazing.
             </p>
             <Link href="/contact">
               <AudioButton
                 description="Get in touch - Contact me for collaboration"
-                className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold px-8 py-4 rounded-full border border-white/30 inline-flex items-center gap-3"
+                className="backdrop-blur-md font-semibold px-8 py-4 rounded-full inline-flex items-center gap-3 transition-all duration-300"
+                style={{
+                  backgroundColor: "var(--theme-card)",
+                  color: "var(--theme-text)",
+                  border: "1px solid var(--theme-border)",
+                }}
               >
                 <Mail className="w-5 h-5" />
                 Get In Touch
