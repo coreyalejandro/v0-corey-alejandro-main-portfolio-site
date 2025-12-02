@@ -327,7 +327,8 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
             <div
               className="p-8 rounded-2xl shadow-lg space-y-4 transition-colors duration-[3000ms]"
               style={{
-                backgroundColor: "var(--theme-card)",
+                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                backdropFilter: "blur(10px)",
                 borderLeft: "4px solid var(--theme-primary)",
               }}
             >
@@ -337,9 +338,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               >
                 The Challenge
               </h3>
-              <p className="leading-relaxed transition-colors duration-[3000ms]" style={{ color: "var(--theme-text)" }}>
-                {project.challenge}
-              </p>
+              <p className="leading-relaxed text-gray-200 transition-colors duration-[3000ms]">{project.challenge}</p>
             </div>
           )}
 
@@ -348,7 +347,8 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
             <div
               className="p-8 rounded-2xl shadow-lg space-y-4 transition-colors duration-[3000ms]"
               style={{
-                backgroundColor: "var(--theme-card)",
+                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                backdropFilter: "blur(10px)",
                 borderLeft: "4px solid var(--theme-secondary)",
               }}
             >
@@ -358,9 +358,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               >
                 The Solution
               </h3>
-              <p className="leading-relaxed transition-colors duration-[3000ms]" style={{ color: "var(--theme-text)" }}>
-                {project.solution}
-              </p>
+              <p className="leading-relaxed text-gray-200 transition-colors duration-[3000ms]">{project.solution}</p>
             </div>
           )}
 
@@ -369,7 +367,8 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
             <div
               className="p-8 rounded-2xl shadow-lg space-y-4 transition-colors duration-[3000ms]"
               style={{
-                backgroundColor: "var(--theme-card)",
+                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                backdropFilter: "blur(10px)",
                 borderLeft: "4px solid var(--theme-accent)",
               }}
             >
@@ -379,9 +378,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               >
                 The Impact
               </h3>
-              <p className="leading-relaxed transition-colors duration-[3000ms]" style={{ color: "var(--theme-text)" }}>
-                {project.impact}
-              </p>
+              <p className="leading-relaxed text-gray-200 transition-colors duration-[3000ms]">{project.impact}</p>
             </div>
           )}
         </div>
