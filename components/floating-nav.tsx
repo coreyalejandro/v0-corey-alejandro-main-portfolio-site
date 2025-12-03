@@ -14,6 +14,7 @@ import {
   Volume2,
   VolumeX,
   Move,
+  Home,
 } from "lucide-react"
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
@@ -254,9 +255,12 @@ export default function FloatingNav() {
               }}
               onClick={(e) => isDragging && e.preventDefault()}
             >
-              <div className="text-sm font-bold text-white flex flex-col items-center leading-tight">
-                <span>Corey</span>
-                <span>Alejandro</span>
+              <div className="flex items-center gap-2">
+                <Home className="w-4 h-4 text-white" />
+                <div className="text-sm font-bold text-white flex flex-col items-center leading-tight">
+                  <span>Corey</span>
+                  <span>Alejandro</span>
+                </div>
               </div>
             </Link>
 

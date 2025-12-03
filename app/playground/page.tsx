@@ -208,13 +208,19 @@ export default function PlaygroundPage() {
               </option>
             </select>
 
-            <button
-              onClick={saveCurrentProject}
-              className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-semibold flex items-center gap-2 transition-all"
-            >
-              <Save className="w-4 h-4" />
-              Save
-            </button>
+            <FloatingCard className="!p-0 !bg-transparent border-0" rotationIntensity={0.2}>
+              <button
+                onClick={saveCurrentProject}
+                className="px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                style={{
+                  background: "linear-gradient(135deg, var(--theme-primary), var(--theme-secondary))",
+                  boxShadow: "0 0 20px var(--theme-nav-glow)",
+                }}
+              >
+                <Save className="w-5 h-5 text-white" />
+                <span className="text-white">Save</span>
+              </button>
+            </FloatingCard>
           </div>
         </div>
 
