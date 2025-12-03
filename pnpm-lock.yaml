@@ -99,11 +99,14 @@ importers:
         specifier: 1.1.6
         version: 1.1.6(@types/react-dom@18.0.0)(@types/react@18.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@upstash/redis':
-        specifier: latest
+        specifier: 1.35.7
         version: 1.35.7
       '@vercel/analytics':
         specifier: 1.3.1
-        version: 1.3.1(next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        version: 1.3.1(next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      ai:
+        specifier: latest
+        version: 5.0.106(zod@3.25.67)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.0)
@@ -127,7 +130,7 @@ importers:
         version: 12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       geist:
         specifier: ^1.3.1
-        version: 1.3.1(next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 1.3.1(next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       html2canvas:
         specifier: latest
         version: 1.4.1
@@ -142,10 +145,10 @@ importers:
         version: 0.454.0(react@19.0.0)
       mcp-handler:
         specifier: ^1.0.3
-        version: 1.0.3(@modelcontextprotocol/sdk@1.22.0)(next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 1.0.3(@modelcontextprotocol/sdk@1.22.0)(next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       next:
         specifier: 14.2.25
-        version: 14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-themes:
         specifier: latest
         version: 0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -209,6 +212,22 @@ importers:
         version: 5.0.2
 
 packages:
+
+  '@ai-sdk/gateway@2.0.18':
+    resolution: {integrity: sha512-sDQcW+6ck2m0pTIHW6BPHD7S125WD3qNkx/B8sEzJp/hurocmJ5Cni0ybExg6sQMGo+fr/GWOwpHF1cmCdg5rQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/provider-utils@3.0.18':
+    resolution: {integrity: sha512-ypv1xXMsgGcNKUP+hglKqtdDuMg68nWHucPPAhIENrbFAI+xCHiqPVN8Zllxyv1TNZwGWUghPxJXU+Mqps0YRQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/provider@2.0.0':
+    resolution: {integrity: sha512-6o7Y2SeO9vFKB8lArHXehNuusnpddKPk7xqL7T2/b+OvXMRIXUO1rR4wcv1hAFUAT9avGZshty3Wlua/XA7TvA==}
+    engines: {node: '>=18'}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -333,6 +352,10 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
+
+  '@opentelemetry/api@1.9.0':
+    resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
+    engines: {node: '>=8.0.0'}
 
   '@radix-ui/number@1.1.0':
     resolution: {integrity: sha512-V3gRzhVNU1ldS5XhAPTom1fOIo4ccrjjJgmE+LI2h/WaFpHmx0MQApT+KZHnx8abG6Avtfcz4WoEciMnpFT3HQ==}
@@ -1163,6 +1186,9 @@ packages:
     peerDependencies:
       '@redis/client': ^1.0.0
 
+  '@standard-schema/spec@1.0.0':
+    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
@@ -1322,9 +1348,19 @@ packages:
       react:
         optional: true
 
+  '@vercel/oidc@3.0.5':
+    resolution: {integrity: sha512-fnYhv671l+eTTp48gB4zEsTW/YtRgRPnkI2nT7x6qw5rkI1Lq2hTmQIpHPgyThI0znLK+vX2n9XxKdXZ7BUbbw==}
+    engines: {node: '>= 20'}
+
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
     engines: {node: '>= 0.6'}
+
+  ai@5.0.106:
+    resolution: {integrity: sha512-M5obwavxSJJ3tGlAFqI6eltYNJB0D20X6gIBCFx/KVorb/X1fxVVfiZZpZb+Gslu4340droSOjT0aKQFCarNVg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
 
   ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
@@ -1742,6 +1778,9 @@ packages:
 
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+
+  json-schema@0.4.0:
+    resolution: {integrity: sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==}
 
   jspdf@3.0.4:
     resolution: {integrity: sha512-dc6oQ8y37rRcHn316s4ngz/nOjayLF/FFxBF4V9zamQKRqXxyiH1zagkCdktdWhtoQId5K20xt1lB90XzkB+hQ==}
@@ -2303,6 +2342,24 @@ packages:
 
 snapshots:
 
+  '@ai-sdk/gateway@2.0.18(zod@3.25.67)':
+    dependencies:
+      '@ai-sdk/provider': 2.0.0
+      '@ai-sdk/provider-utils': 3.0.18(zod@3.25.67)
+      '@vercel/oidc': 3.0.5
+      zod: 3.25.67
+
+  '@ai-sdk/provider-utils@3.0.18(zod@3.25.67)':
+    dependencies:
+      '@ai-sdk/provider': 2.0.0
+      '@standard-schema/spec': 1.0.0
+      eventsource-parser: 3.0.6
+      zod: 3.25.67
+
+  '@ai-sdk/provider@2.0.0':
+    dependencies:
+      json-schema: 0.4.0
+
   '@alloc/quick-lru@5.2.0': {}
 
   '@ampproject/remapping@2.3.0':
@@ -2405,6 +2462,8 @@ snapshots:
 
   '@next/swc-win32-x64-msvc@14.2.25':
     optional: true
+
+  '@opentelemetry/api@1.9.0': {}
 
   '@radix-ui/number@1.1.0': {}
 
@@ -3248,6 +3307,8 @@ snapshots:
     dependencies:
       '@redis/client': 1.6.1
 
+  '@standard-schema/spec@1.0.0': {}
+
   '@swc/counter@0.1.3': {}
 
   '@swc/helpers@0.5.5':
@@ -3381,17 +3442,27 @@ snapshots:
     dependencies:
       uncrypto: 0.1.3
 
-  '@vercel/analytics@1.3.1(next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
+  '@vercel/analytics@1.3.1(next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
     dependencies:
       server-only: 0.0.1
     optionalDependencies:
-      next: 14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
+
+  '@vercel/oidc@3.0.5': {}
 
   accepts@2.0.0:
     dependencies:
       mime-types: 3.0.1
       negotiator: 1.0.0
+
+  ai@5.0.106(zod@3.25.67):
+    dependencies:
+      '@ai-sdk/gateway': 2.0.18(zod@3.25.67)
+      '@ai-sdk/provider': 2.0.0
+      '@ai-sdk/provider-utils': 3.0.18(zod@3.25.67)
+      '@opentelemetry/api': 1.9.0
+      zod: 3.25.67
 
   ajv-formats@3.0.1(ajv@8.17.1):
     optionalDependencies:
@@ -3726,9 +3797,9 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  geist@1.3.1(next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  geist@1.3.1(next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
     dependencies:
-      next: 14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   generic-pool@3.9.0: {}
 
@@ -3806,6 +3877,8 @@ snapshots:
 
   json-schema-traverse@1.0.0: {}
 
+  json-schema@0.4.0: {}
+
   jspdf@3.0.4:
     dependencies:
       '@babel/runtime': 7.28.4
@@ -3878,14 +3951,14 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
-  mcp-handler@1.0.3(@modelcontextprotocol/sdk@1.22.0)(next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  mcp-handler@1.0.3(@modelcontextprotocol/sdk@1.22.0)(next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
     dependencies:
       '@modelcontextprotocol/sdk': 1.22.0
       chalk: 5.6.2
       commander: 11.1.0
       redis: 4.7.1
     optionalDependencies:
-      next: 14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   media-typer@1.1.0: {}
 
@@ -3920,7 +3993,7 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  next@14.2.25(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@14.2.25(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@next/env': 14.2.25
       '@swc/helpers': 0.5.5
@@ -3941,6 +4014,7 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 14.2.25
       '@next/swc-win32-ia32-msvc': 14.2.25
       '@next/swc-win32-x64-msvc': 14.2.25
+      '@opentelemetry/api': 1.9.0
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros

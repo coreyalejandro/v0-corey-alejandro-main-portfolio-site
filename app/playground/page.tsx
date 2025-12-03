@@ -33,6 +33,7 @@ export default function PlaygroundPage() {
   const [savedProjects, setSavedProjects] = useState<SavedProject[]>([])
   const [currentProjectId, setCurrentProjectId] = useState<string | null>(null)
   const [projectName, setProjectName] = useState("Untitled Project")
+  const [selectedModel, setSelectedModel] = useState<string>("gpt-4o")
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -113,15 +114,30 @@ export default function PlaygroundPage() {
     setInput("")
     setIsLoading(true)
 
-    setTimeout(() => {
-      const assistantMessage: Message = {
-        role: "assistant",
-        content: `I'll help you build that! Here's what we can do:\n\n1. Design the interface\n2. Set up the components\n3. Add interactions\n\nLet me know which part you'd like to start with.`,
-        timestamp: Date.now(),
+    try {
+      const response = await fetch("/api/playground/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map((m) => ({ role: m.role, content: m.content })),
+          model: selectedModel,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        const assistantMessage: Message = {
+          role: "assistant",
+          content: data.message,
+          timestamp: Date.now(),
+        }
+        setMessages((prev) => [...prev, assistantMessage])
       }
-      setMessages((prev) => [...prev, assistantMessage])
+    } catch (error) {
+      console.error("[v0] Failed to send message:", error)
+    } finally {
       setIsLoading(false)
-    }, 1000)
+    }
   }
 
   return (
@@ -171,13 +187,35 @@ export default function PlaygroundPage() {
             className="text-2xl font-bold text-white bg-transparent border-none outline-none"
             placeholder="Project Name"
           />
-          <button
-            onClick={saveCurrentProject}
-            className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-semibold flex items-center gap-2 transition-all"
-          >
-            <Save className="w-4 h-4" />
-            Save
-          </button>
+
+          <div className="flex items-center gap-4">
+            <select
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+              className="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white font-semibold cursor-pointer hover:bg-white/20 transition-all"
+            >
+              <option value="gpt-4o" className="bg-gray-900">
+                GPT-4o
+              </option>
+              <option value="gpt-4o-mini" className="bg-gray-900">
+                GPT-4o Mini
+              </option>
+              <option value="anthropic/claude-sonnet-4" className="bg-gray-900">
+                Claude Sonnet 4
+              </option>
+              <option value="openai/gpt-5-mini" className="bg-gray-900">
+                GPT-5 Mini
+              </option>
+            </select>
+
+            <button
+              onClick={saveCurrentProject}
+              className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-semibold flex items-center gap-2 transition-all"
+            >
+              <Save className="w-4 h-4" />
+              Save
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">

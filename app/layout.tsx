@@ -4,7 +4,6 @@ import FloatingNav from "@/components/floating-nav"
 import "./globals.css"
 import { Suspense } from "react"
 import { AudioEngineProvider } from "@/components/audio-experience/audio-engine"
-import { AudioToggle } from "@/components/audio-experience/audio-toggle"
 import { AnimationProvider } from "@/contexts/AnimationContext"
 import { ColorThemeProvider } from "@/contexts/ColorThemeContext"
 
@@ -28,7 +27,6 @@ export default function RootLayout({
               <Suspense fallback={null}>
                 <FloatingNav />
               </Suspense>
-              <AudioToggle />
               {children}
             </AudioEngineProvider>
           </AnimationProvider>
