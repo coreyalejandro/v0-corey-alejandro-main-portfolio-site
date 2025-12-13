@@ -290,9 +290,9 @@ function SuperpowersSection({ time }: { time: number }) {
         }}
       />
 
-      <div className="relative text-center mb-20">
+      <div className="relative container mx-auto px-4 text-center mb-20 z-10">
         <h2
-          className="text-8xl font-black"
+          className="text-6xl md:text-8xl font-black"
           style={{
             background: "linear-gradient(90deg, var(--theme-accent), var(--theme-text))",
             WebkitBackgroundClip: "text",
