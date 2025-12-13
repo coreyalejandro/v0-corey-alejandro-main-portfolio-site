@@ -123,27 +123,13 @@ export function PortfolioSection() {
               transform: `translate(${Math.sin(time * 0.3) * 100}px, ${Math.cos(time * 0.3) * 50}px) rotate(${Math.sin(time * 0.2) * 5}deg)`,
             }}
           >
-            <h1
-              className="text-8xl font-black drop-shadow-2xl"
-              style={{
-                background: "linear-gradient(90deg, var(--theme-accent), var(--theme-text))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                transition: "background 3s ease-in-out",
-              }}
-            >
+            <h1 className="text-8xl font-black drop-shadow-2xl bg-gradient-to-r from-orange-500 via-red-500 to-amber-500 bg-clip-text text-transparent">
               CREATIVE
             </h1>
             <h1
-              className="text-8xl font-black mt-4 drop-shadow-2xl"
+              className="text-8xl font-black mt-4 drop-shadow-2xl bg-gradient-to-r from-orange-500 via-red-500 to-amber-500 bg-clip-text text-transparent"
               style={{
-                background: "linear-gradient(90deg, var(--theme-accent), var(--theme-text))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
                 transform: `rotate(${Math.cos(time * 0.4) * 10}deg)`,
-                transition: "background 3s ease-in-out",
               }}
             >
               CHAOS
