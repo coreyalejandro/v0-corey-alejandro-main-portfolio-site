@@ -1075,13 +1075,6 @@ interface Project {
 
 No environment variables required! All features work client-side.
 
-Optional GitHub Personal Access Token for higher API rate limits:
-
-\`\`\`env
-# .env.local (optional)
-NEXT_PUBLIC_GITHUB_TOKEN=ghp_your_token_here
-\`\`\`
-
 ---
 
 ## Development Guide
