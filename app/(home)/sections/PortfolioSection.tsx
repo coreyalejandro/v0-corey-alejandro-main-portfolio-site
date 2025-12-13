@@ -135,16 +135,19 @@ export function PortfolioSection() {
             >
               CREATIVE
             </h1>
-            <div
-              className="text-6xl font-light mt-4"
+            <h1
+              className="text-8xl font-black mt-4 drop-shadow-2xl"
               style={{
+                background: "linear-gradient(90deg, var(--theme-accent), var(--theme-text))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
                 transform: `rotate(${Math.cos(time * 0.4) * 10}deg)`,
-                color: "var(--theme-text)",
-                transition: "color 3s ease-in-out",
+                transition: "background 3s ease-in-out",
               }}
             >
               CHAOS
-            </div>
+            </h1>
           </div>
 
           {/* Orbiting badges */}
