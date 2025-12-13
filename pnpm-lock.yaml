@@ -114,7 +114,7 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.0)
       class-variance-authority:
-        specifier: ^0.7.1
+        specifier: latest
         version: 0.7.1
       clsx:
         specifier: ^2.1.1
