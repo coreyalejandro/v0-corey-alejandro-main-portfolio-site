@@ -1,18 +1,13 @@
-'use client'
+"use client"
 
-import { AnimationProvider } from '@/contexts/AnimationContext'
-import {
-  HeroSection,
-  CTASection,
-  PortfolioSection,
-} from './sections'
-import ResumeTemplate from '@/app/templates/resume/page'
+import { AnimationProvider } from "@/contexts/AnimationContext"
+import { HeroSection, CTASection, PortfolioSection } from "./sections"
 
 /**
  * HomePage - Clean orchestrator component
- * 
+ *
  * This file went from 42KB (1000+ lines) to ~1KB (50 lines)
- * 
+ *
  * All logic has been extracted into:
  * - Sections (./sections/)
  * - Hooks (../../hooks/)
@@ -24,9 +19,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <AnimationProvider>
         <HeroSection />
-        <ResumeTemplate />
-        <CTASection />
         <PortfolioSection />
+        <CTASection />
       </AnimationProvider>
     </div>
   )
