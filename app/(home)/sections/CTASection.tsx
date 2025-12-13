@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Heart, ArrowRight, Star, Eye, Waves, Palette, Zap, Sparkles, Orbit } from "lucide-react"
 import Link from "next/link"
 import { useAnimation } from "@/hooks/useAnimation"
@@ -91,15 +89,16 @@ export function CTASection() {
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 max-w-md">
               <div className="text-white/90 mb-4 font-medium">Join the revolution</div>
               <div className="flex gap-3">
-                <Input
+                <input
+                  type="email"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/20 border-white/30 text-white placeholder:text-white/60 rounded-xl"
+                  className="bg-white/20 border-white/30 text-white placeholder:text-white/60 rounded-xl flex-1"
                 />
-                <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 rounded-xl">
+                <button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 rounded-xl px-4 py-2">
                   <ArrowRight className="w-4 h-4" />
-                </Button>
+                </button>
               </div>
             </div>
           </div>

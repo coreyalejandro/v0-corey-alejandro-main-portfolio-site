@@ -1,11 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Sparkles, Orbit, Github, Layers, Heart, Eye, ArrowRight, ExternalLink } from "lucide-react"
 import Link from "next/link"
+import { FloatingCard } from "@/components/creative-chaos/floating-card"
 import { useAnimation } from "@/hooks/useAnimation"
 import { AudioSection } from "@/components/audio-experience/audio-section"
 import { AudioButton } from "@/components/audio-experience/audio-button"
@@ -138,7 +136,7 @@ export function PortfolioSection() {
 
           {/* Orbiting badges */}
           {["Neural Artist", "Chaos Engineer", "Joy Architect"].map((badge, i) => (
-            <Badge
+            <div
               key={i}
               className="absolute backdrop-blur-sm font-semibold z-10"
               style={{
@@ -151,7 +149,7 @@ export function PortfolioSection() {
             >
               <Sparkles className="w-4 h-4 mr-2" />
               {badge}
-            </Badge>
+            </div>
           ))}
 
           {/* Floating action buttons */}
@@ -225,7 +223,7 @@ export function PortfolioSection() {
               }
 
               return (
-                <Card
+                <FloatingCard
                   key={i}
                   onClick={() => openProjectModal(project.id)}
                   className={`absolute group cursor-pointer transition-all duration-700 hover:scale-110 hover:z-30 ${sizeClasses[project.size]} shadow-2xl`}
@@ -249,7 +247,7 @@ export function PortfolioSection() {
                       }}
                     />
 
-                    <CardContent className="relative h-full p-8 flex flex-col justify-between text-white z-10">
+                    <div className="relative h-full p-8 flex flex-col justify-between text-white z-10">
                       <div>
                         <div className="flex items-center gap-2 mb-4">
                           <Layers className="w-5 h-5" />
@@ -267,9 +265,12 @@ export function PortfolioSection() {
 
                         <div className="flex flex-wrap gap-2 mb-6">
                           {project.tags.map((tag, j) => (
-                            <Badge key={j} className="bg-white/20 text-white border-white/30 text-xs backdrop-blur-sm">
+                            <div
+                              key={j}
+                              className="bg-white/20 text-white border-white/30 text-xs backdrop-blur-sm px-2 py-1 rounded"
+                            >
                               {tag}
-                            </Badge>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -286,22 +287,22 @@ export function PortfolioSection() {
                           </div>
                         </div>
 
-                        <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white border-white/30">
+                        <div className="bg-white/20 hover:bg-white/30 text-white border-white/30 px-4 py-2 rounded flex items-center gap-1">
                           Explore
                           <ArrowRight className="w-4 h-4 ml-1" />
-                        </Button>
+                        </div>
                       </div>
-                    </CardContent>
+                    </div>
 
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <Button className="bg-white text-orange-600 hover:bg-white/90 font-bold">
+                      <div className="bg-white text-orange-600 hover:bg-white/90 font-bold px-4 py-2 rounded flex items-center gap-1">
                         <ExternalLink className="w-4 h-4 mr-2" />
                         View Details
-                      </Button>
+                      </div>
                     </div>
                   </div>
-                </Card>
+                </FloatingCard>
               )
             })}
           </div>
