@@ -292,14 +292,9 @@ function SuperpowersSection({ time }: { time: number }) {
 
       <div className="relative container mx-auto px-4 text-center mb-20 z-10">
         <h2
-          className="text-6xl md:text-8xl font-black"
+          className="text-6xl md:text-8xl font-black bg-gradient-to-r from-orange-500 via-red-500 to-amber-500 bg-clip-text text-transparent"
           style={{
-            background: "linear-gradient(90deg, var(--theme-accent), var(--theme-text))",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
             transform: `rotate(${Math.sin(time * 0.3) * 3}deg)`,
-            transition: "background 3s ease-in-out",
           }}
         >
           SUPERPOWERS
